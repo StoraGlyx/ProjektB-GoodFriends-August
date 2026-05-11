@@ -1,0 +1,35 @@
+@page
+@model CountryModel
+
+<h1>@Model.Country</h1>
+
+<p>Cities with friends and pets in @Model.Country.</p>
+
+<a class="btn btn-secondary mb-3" asp-page="/Countries">Back to countries</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Friends</th>
+            <th>Pets</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in Model.Cities)
+        {
+            <tr>
+                <td>@city.City</td>
+                <td>@city.FriendCount</td>
+                <td>@city.PetCount</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-page="/Friends" asp-route-country="@Model.Country"
+                        asp-route-city="@city.City">
+                        View friends
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
