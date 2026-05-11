@@ -1,0 +1,73 @@
+@page
+@model FriendDetailsModel
+
+@if (Model.Friend != null)
+{
+    <h1>@Model.Friend.FirstName @Model.Friend.LastName</h1>
+
+    <a class="btn btn-secondary mb-3" asp-page="/Friends">Back to friends</a>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Friend
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> @Model.Friend.FirstName @Model.Friend.LastName</p>
+            <p><strong>Birthday:</strong> @Model.Friend.Birthday</p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Address
+        </div>
+        <div class="card-body">
+            <p><strong>Street:</strong> @Model.Friend.Address?.StreetAddress</p>
+            <p><strong>Zip:</strong> @Model.Friend.Address?.ZipCode</p>
+            <p><strong>City:</strong> @Model.Friend.Address?.City</p>
+            <p><strong>Country:</strong> @Model.Friend.Address?.Country</p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Pets
+        </div>
+        <div class="card-body">
+            @if (Model.Friend.Pets != null && Model.Friend.Pets.Any())
+            {
+                <ul>
+                    @foreach (var pet in Model.Friend.Pets)
+                    {
+                        <li>@pet.Name</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No pets.</p>
+            }
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Quotes
+        </div>
+        <div class="card-body">
+            @if (Model.Friend.Quotes != null && Model.Friend.Quotes.Any())
+            {
+                <ul>
+                    @foreach (var quote in Model.Friend.Quotes)
+                    {
+                        <li>@quote.QuoteText</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No quotes.</p>
+            }
+        </div>
+    </div>
+}
