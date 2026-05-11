@@ -1,0 +1,45 @@
+@page
+@model FriendsModel
+
+<h1>Friends</h1>
+
+@if (!string.IsNullOrWhiteSpace(Model.Country))
+{
+    <p>
+        Showing friends in <strong>@Model.Country</strong>
+        @if (!string.IsNullOrWhiteSpace(Model.City))
+        {
+            <span> / <strong>@Model.City</strong></span>
+        }
+    </p>
+}
+
+<a class="btn btn-secondary mb-3" asp-page="/Countries">Back to countries</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Pets</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var friend in Model.Friends)
+        {
+            <tr>
+                <td>@friend.FirstName @friend.LastName</td>
+                <td>@friend.Address?.Country</td>
+                <td>@friend.Address?.City</td>
+                <td>@(friend.Pets?.Count() ?? 0)</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-page="/FriendDetails" asp-route-id="@friend.FriendId">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
