@@ -1,0 +1,40 @@
+@page
+@model EditFriendModel
+
+<h1>Edit Friend</h1>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Friend.FriendId" />
+
+    <div class="mb-3">
+        <label asp-for="Friend.FirstName" class="form-label"></label>
+        <input asp-for="Friend.FirstName" class="form-control" />
+        <span asp-validation-for="Friend.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Friend.LastName" class="form-label"></label>
+        <input asp-for="Friend.LastName" class="form-control" />
+        <span asp-validation-for="Friend.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Friend.Birthday" class="form-label"></label>
+        <input asp-for="Friend.Birthday" class="form-control" type="date" />
+        <span asp-validation-for="Friend.Birthday" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Save
+    </button>
+
+    <a class="btn btn-secondary" asp-page="/FriendDetails" asp-route-id="@Model.Friend.FriendId">
+        Cancel
+    </a>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
