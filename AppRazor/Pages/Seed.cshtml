@@ -1,0 +1,23 @@
+@page
+@model SeedModel
+
+<h1>Seed Database</h1>
+
+<p>Use this page to seed or remove seeded data.</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-success">
+        @Model.Message
+    </div>
+}
+
+<form method="post" class="d-flex gap-2">
+    <button type="submit" asp-page-handler="Seed" class="btn btn-primary">
+        Seed Database
+    </button>
+
+    <button type="submit" asp-page-handler="RemoveSeed" class="btn btn-danger">
+        Remove Seed
+    </button>
+</form>
