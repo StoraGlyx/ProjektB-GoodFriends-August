@@ -1,0 +1,30 @@
+@page
+@model CountriesModel
+
+<h1>Friends by Country</h1>
+
+<p>Overview of friends grouped by country.</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Friends</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var country in Model.Countries)
+        {
+            <tr>
+                <td>@country.Country</td>
+                <td>@country.FriendCount</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-page="/Country" asp-route-country="@country.Country">
+                        View cities
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
