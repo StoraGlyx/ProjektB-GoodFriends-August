@@ -26,25 +26,35 @@ public class EditFriendModel : PageModel
             return RedirectToPage("/Friends");
         }
 
-        Friend = new FriendCuDto
-        {
-            FriendId = response.Item.FriendId,
-            FirstName = response.Item.FirstName,
-            LastName = response.Item.LastName,
-            Birthday = response.Item.Birthday
-        };
+        Friend = new FriendCuDto(response.Item);
 
         return Page();
     }
 
     public async Task<IActionResult> OnPost()
     {
+        var existing = await _friendsService.ReadFriendAsync(Friend.FriendId!.Value, flat: false);
+
+        if (existing.Item == null)
+        {
+            return RedirectToPage("/Friends");
+        }
+
+        Friend.AddressId = existing.Item.Address?.AddressId;
+        Friend.PetsId = existing.Item.Pets?.Select(p => p.PetId).ToList();
+        Friend.QuotesId = existing.Item.Quotes?.Select(q => q.QuoteId).ToList();
+
+        if (string.IsNullOrWhiteSpace(Friend.Email))
+        {
+            Friend.Email = existing.Item.Email;
+        }
+
         if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        var response = await _friendsService.UpdateFriendAsync(Friend);
+        await _friendsService.UpdateFriendAsync(Friend);
 
         return RedirectToPage("/FriendDetails", new { id = Friend.FriendId });
     }

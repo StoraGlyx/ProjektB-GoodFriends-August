@@ -3,13 +3,20 @@
 
 @if (Model.Friend != null)
 {
-    <h1>@Model.Friend.FirstName @Model.Friend.LastName</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1>@Model.Friend.FirstName @Model.Friend.LastName</h1>
+            <p class="text-muted mb-0">Friend details</p>
+        </div>
 
-    <a class="btn btn-secondary mb-3" asp-page="/Friends">Back to friends</a>
+        <div>
+            <a class="btn btn-secondary" asp-page="/Friends">Back</a>
+            <a class="btn btn-warning" asp-page="/EditFriend" asp-route-id="@Model.Friend.FriendId">
+                Edit Friend
+            </a>
+        </div>
+    </div>
 
-    <a class="btn btn-warning mb-3" asp-page="/EditFriend" asp-route-id="@Model.Friend.FriendId">
-        Edit Friend
-    </a>
     <div class="card mb-3">
         <div class="card-header">
             Friend
@@ -21,9 +28,14 @@
     </div>
 
     <div class="card mb-3">
-        <div class="card-header">
-            Address
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Address</span>
+
+            <a class="btn btn-warning btn-sm" asp-page="/EditAddress" asp-route-friendId="@Model.Friend.FriendId">
+                Edit Address
+            </a>
         </div>
+
         <div class="card-body">
             <p><strong>Street:</strong> @Model.Friend.Address?.StreetAddress</p>
             <p><strong>Zip:</strong> @Model.Friend.Address?.ZipCode</p>
@@ -39,7 +51,7 @@
         <div class="card-body">
             @if (Model.Friend.Pets != null && Model.Friend.Pets.Any())
             {
-                <ul>
+                <ul class="mb-0">
                     @foreach (var pet in Model.Friend.Pets)
                     {
                         <li>@pet.Name</li>
@@ -48,7 +60,7 @@
             }
             else
             {
-                <p>No pets.</p>
+                <p class="mb-0">No pets.</p>
             }
         </div>
     </div>
@@ -60,7 +72,7 @@
         <div class="card-body">
             @if (Model.Friend.Quotes != null && Model.Friend.Quotes.Any())
             {
-                <ul>
+                <ul class="mb-0">
                     @foreach (var quote in Model.Friend.Quotes)
                     {
                         <li>@quote.QuoteText</li>
@@ -69,8 +81,14 @@
             }
             else
             {
-                <p>No quotes.</p>
+                <p class="mb-0">No quotes.</p>
             }
         </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        Friend could not be found.
     </div>
 }

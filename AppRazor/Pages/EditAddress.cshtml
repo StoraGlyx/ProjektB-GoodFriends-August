@@ -1,0 +1,47 @@
+@page
+@model EditAddressModel
+
+<h1>Edit Address</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Address.AddressId" />
+    <input type="hidden" name="friendId" value="@Model.FriendId" />
+
+    <div class="mb-3">
+        <label asp-for="Address.StreetAddress" class="form-label"></label>
+        <input asp-for="Address.StreetAddress" class="form-control" />
+        <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address.ZipCode" class="form-label"></label>
+        <input asp-for="Address.ZipCode" class="form-control" />
+        <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address.City" class="form-label"></label>
+        <input asp-for="Address.City" class="form-control" />
+        <span asp-validation-for="Address.City" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address.Country" class="form-label"></label>
+        <input asp-for="Address.Country" class="form-control" />
+        <span asp-validation-for="Address.Country" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Save
+    </button>
+
+    <a class="btn btn-secondary" asp-page="/FriendDetails" asp-route-id="@Model.FriendId">
+        Cancel
+    </a>
+
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

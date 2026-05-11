@@ -8,6 +8,12 @@
     <input type="hidden" asp-for="Friend.FriendId" />
 
     <div class="mb-3">
+        <label asp-for="Friend.Email" class="form-label"></label>
+        <input asp-for="Friend.Email" class="form-control" />
+        <span asp-validation-for="Friend.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
         <label asp-for="Friend.FirstName" class="form-label"></label>
         <input asp-for="Friend.FirstName" class="form-control" />
         <span asp-validation-for="Friend.FirstName" class="text-danger"></span>
