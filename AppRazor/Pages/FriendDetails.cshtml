@@ -51,10 +51,45 @@
         <div class="card-body">
             @if (Model.Friend.Pets != null && Model.Friend.Pets.Any())
             {
-                <ul class="mb-0">
+                <ul class="list-group">
                     @foreach (var pet in Model.Friend.Pets)
                     {
-                        <li>@pet.Name</li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>@pet.Name</span>
+
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#deletePetModal-@pet.PetId">
+                                Delete
+                            </button>
+                        </li>
+
+                        <div class="modal fade" id="deletePetModal-@pet.PetId" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Delete pet</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Are you sure you want to delete <strong>@pet.Name</strong>?
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+
+                                        <form method="post" asp-page-handler="DeletePet" asp-route-friendId="@Model.Friend.FriendId"
+                                            asp-route-petId="@pet.PetId">
+                                            <button type="submit" class="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
                 </ul>
             }
